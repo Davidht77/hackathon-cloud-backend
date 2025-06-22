@@ -1,4 +1,4 @@
-org: anthrom
+org: davidht77
 service: api-diagrama
 
 provider:
@@ -8,11 +8,11 @@ provider:
   timeout: 30           
   memorySize: 1024      
   iam:
-    role: arn:aws:iam::104861753178:role/LabRole
+    role: arn:aws:iam::150209693186:role/LabRole
   environment:
     TABLE_USUARIOS: t_usuarios3
     TABLE_TOKENS:  t_tokens_acceso2
-    BUCKET_NAME:   bucket-diagramas  
+    BUCKET_NAME:   bucket-diagramas-77  
 
 
 plugins:
@@ -66,6 +66,18 @@ functions:
           path: /diagrama/aws
           method: post
           cors: true
+          
+  generarDiagramaER:
+    handler: api-diagrama/diagrama-ER.lambda_handler
+    timeout: 30         
+    memorySize: 512     
+    environment:
+      BUCKET_NAME: ${self:provider.environment.BUCKET_NAME}
+    events:
+      - http:
+          path: /diagrama/er
+          method: post
+          cors: true
 
   generarDiagramaER:
     handler: api-diagrama/diagrama-ER.lambda_handler
@@ -113,4 +125,4 @@ resources:
     BucketDiagramas:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: bucket-diagramas
+        BucketName: bucket-diagramas-77
