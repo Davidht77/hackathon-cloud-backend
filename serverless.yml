@@ -78,15 +78,15 @@ functions:
           method: post
           cors: true
 
-  generarDiagramaER:
-    handler: api-diagrama/diagrama-ER.lambda_handler
+  generarDiagramaJson:
+    handler: api-diagrama/diagrama-json.lambda_handler
     timeout: 30         
     memorySize: 512     
     environment:
       BUCKET_NAME: ${self:provider.environment.BUCKET_NAME}
     events:
       - http:
-          path: /diagrama/ER
+          path: /diagrama/json
           method: post
           cors: true
 
