@@ -66,6 +66,18 @@ functions:
           path: /diagrama/aws
           method: post
           cors: true
+          
+  generarDiagramaER:
+    handler: api-diagrama/diagrama-ER.lambda_handler
+    timeout: 30         
+    memorySize: 512     
+    environment:
+      BUCKET_NAME: ${self:provider.environment.BUCKET_NAME}
+    events:
+      - http:
+          path: /diagrama/er
+          method: post
+          cors: true
 
 resources:
   Resources:
