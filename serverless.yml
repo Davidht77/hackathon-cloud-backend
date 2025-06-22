@@ -91,7 +91,7 @@ functions:
           cors: true
 
   listarDiagramas:
-    handler: api-diagrama/ListarDiagramas.listar_diagramas
+    handler: api-diagrama/Listar-Diagrama.listar_diagramas
     events:
       - http:
           path: diagrama/publico

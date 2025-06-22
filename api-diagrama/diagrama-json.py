@@ -53,7 +53,9 @@ def lambda_handler(event, _context):
         tenant_id, user_id = user["tenant_id"], user["user_id"]
 
         body = json.loads(event.get("body") or "{}")
+        logger.info("Body recibido: %s", body)
         json_data = body.get("code")
+        logger.info("JSON Data para Mermaid: %s", json_data)
         if not json_data:
             return {"statusCode": 400, "body": json.dumps({"error": "Falta el campo code con el JSON"})}
 
