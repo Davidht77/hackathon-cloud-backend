@@ -1,0 +1,89 @@
+org: anthrom
+service: api-diagrama
+
+provider:
+  name: aws
+  region: us-east-1
+  runtime: python3.13
+  timeout: 30
+  iam:
+    role: arn:aws:iam::104861753178:role/LabRole
+  environment:
+    TABLE_USUARIOS: t_usuarios3
+    TABLE_TOKENS: t_tokens_acceso2
+    BUCKET_NAME: bucket-diagramas
+
+functions:
+
+  loginUsuario:
+    handler: api-usuario/LoginUsuario.lambda_handler
+    events:
+      - http:
+          path: /usuario/login
+          method: post
+          cors: true
+
+  registrarUsuario:
+    handler: api-usuario/RegistroUsuario.lambda_handler
+    events:
+      - http:
+          path: /usuario/signup
+          method: post
+          cors: true
+
+  validarUsuario:
+    handler: api-usuario/ValidarTokenUsuario.lambda_handler
+    events:
+      - http:
+          path: /usuario/validar
+          method: post
+          cors: true
+
+  generarDiagramaAWS:
+    handler: api-diagrama/generar.lambda_handler
+    timeout: 60
+    environment:
+      BUCKET_NAME: bucket-diagramas
+    events:
+      - http:
+          path: /diagrama/aws
+          method: post
+          cors: true
+          authorizer:
+            name: validarUsuario
+            type: request
+
+resources:
+  Resources:
+    TablaUsuarios3:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: t_usuarios3
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: tenant_id
+            AttributeType: S
+          - AttributeName: user_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: tenant_id
+            KeyType: HASH
+          - AttributeName: user_id
+            KeyType: RANGE
+
+    TablaTokensAcceso2:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: t_tokens_acceso2
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: token
+            AttributeType: S
+        KeySchema:
+          - AttributeName: token
+            KeyType: HASH
+
+    BucketDiagramas:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: bucket-diagramas
