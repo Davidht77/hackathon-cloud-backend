@@ -1,4 +1,4 @@
-org: anthrom
+org: davidht77
 service: api-diagrama
 
 provider:
@@ -8,7 +8,7 @@ provider:
   timeout: 30           
   memorySize: 1024      
   iam:
-    role: arn:aws:iam::104861753178:role/LabRole
+    role: arn:aws:iam::150209693186:role/LabRole
   environment:
     TABLE_USUARIOS: t_usuarios3
     TABLE_TOKENS:  t_tokens_acceso2
