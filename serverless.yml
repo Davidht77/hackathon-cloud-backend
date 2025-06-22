@@ -12,7 +12,7 @@ provider:
   environment:
     TABLE_USUARIOS: t_usuarios3
     TABLE_TOKENS:  t_tokens_acceso2
-    BUCKET_NAME:   bucket-diagramas  
+    BUCKET_NAME:   bucket-diagramas-77  
 
 
 plugins:
@@ -101,4 +101,4 @@ resources:
     BucketDiagramas:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: bucket-diagramas
+        BucketName: bucket-diagramas-77
