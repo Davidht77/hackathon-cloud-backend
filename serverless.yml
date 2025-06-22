@@ -27,7 +27,6 @@ package:
   patterns:
     - '!node_modules/**'
 
-
 functions:
 
   loginUsuario:
