@@ -91,6 +91,14 @@ functions:
           method: post
           cors: true
 
+  listarDiagramas:
+    handler: api-diagrama/ListarDiagramas.listar_diagramas
+    events:
+      - http:
+          path: diagrama/publico
+          method: get
+          cors: true 
+
 resources:
   Resources:
 
