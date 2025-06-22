@@ -16,7 +16,7 @@ provider:
 functions:
 
   loginUsuario:
-    handler: api-usuario/LoginUsuario.lambda_handler
+    handler: api-usuarios/LoginUsuario.lambda_handler
     events:
       - http:
           path: /usuario/login
@@ -24,7 +24,7 @@ functions:
           cors: true
 
   registrarUsuario:
-    handler: api-usuario/RegistroUsuario.lambda_handler
+    handler: api-usuarios/RegistroUsuario.lambda_handler
     events:
       - http:
           path: /usuario/signup
@@ -32,7 +32,7 @@ functions:
           cors: true
 
   validarUsuario:
-    handler: api-usuario/ValidarTokenUsuario.lambda_handler
+    handler: api-usuarios/ValidarTokenUsuario.lambda_handler
     events:
       - http:
           path: /usuario/validar
